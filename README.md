@@ -1,2 +1,1 @@
-# SB.CronTrader
-SB.CronTrader
+
