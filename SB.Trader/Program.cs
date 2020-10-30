@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Newtonsoft.Json;
+using SB.Trader.Helper;
 using SB.Trader.Model;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,9 @@ namespace SB.Trader
         static void Run(Options options)
         {
             var rules = JsonConvert.DeserializeObject<Rules>(File.ReadAllText(options.RulesPath));
+            var data = DataHelper.GetCandles(options.DataPath, options.Epic, false);
+            var strategyHelper = new StrategyHelper(rules, data);
+            strategyHelper.RunRules();
         }
         static void HandleParseError(IEnumerable<Error> errs)
         {
