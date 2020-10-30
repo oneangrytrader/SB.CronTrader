@@ -1,0 +1,26 @@
+﻿{
+  "Rules":
+  [
+    {
+      "type": "ENTRY",
+      "strategy": "ENTER_AT_LEVEL",
+      "level": 1500,
+      "direction": "BUY",
+      "stop": 1500
+    },
+    {
+      "type": "ENTRY",
+      "strategy": "ENTER_AT_LEVEL",
+      "level": 1500,
+      "direction": "BUY",
+      "stop": 1500
+    },
+    {
+      "type": "ENTRY",
+      "strategy": "ENTER_AT_LEVEL",
+      "level": 1500,
+      "direction": "BUY",
+      "stop": 1500
+    }
+  ]
+}
