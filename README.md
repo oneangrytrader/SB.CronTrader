@@ -17,7 +17,3 @@ The program will iterate through every candle executing the rules provides
 |----------|---------------------|
 | ENTRY    |  Open a position    |
 | UPDATE   |  Update a position  |
-
-
-
-
