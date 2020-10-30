@@ -3,11 +3,13 @@
   [
     {
       "ruleType": "ENTRY",
-      "strategy": "ENTER_AT_LEVEL",
+      "strategy": "ENTER_AT_DATE",
+      "date": "",
       "frequency" : "SINGLE",
       "level": 1500,
       "direction": "BUY",
-      "stop": 1500
+      "stop": 1300,
+      "limit" : 1700
     }
   ]
 }

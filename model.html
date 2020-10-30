@@ -1,44 +1,33 @@
-<html>
-<head>
-</head>
-<body>
-    <table class="table table-striped table-responsive-md btn-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>
-                    <button type="button" class="btn btn-indigo btn-sm m-0">Button</button>
-                </td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>
-                    <button type="button" class="btn btn-indigo btn-sm m-0">Button</button>
-                </td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>
-                    <button type="button" class="btn btn-indigo btn-sm m-0">Button</button>
-                </td>
-            </tr>
-        </tbody>
-
-    </table>
-</body>
-</html>
+<table style="width:800px;text-align:left;" border="1">
+    <thead>
+        <tr>
+            <th>Parameter</th><th>Value</th><th>Definition</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2">RuleType</td><td>ENTRY</td><td>Open a Position</td>
+        </tr>
+        <tr>
+            <td>UPDATE</td><td>Update a Position</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Frequency</td><td>SINGLE</td><td>Execute the rule just once</td>
+        </tr>
+        <tr>
+            <td>MULTIPLE</td><td>Execute the rule on every candle that matches the rule</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Direction</td><td>BUY</td><td>Long Position</td>
+        </tr>
+        <tr>
+            <td>SELL</td><td>Short Position</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Strategy</td><td>ENTRY_AT_LEVEL</td><td>Open the position at market level setting stop and limit levels</td>
+        </tr>
+        <tr>
+            <td>ENTRY_AT_DATE</td><td>Open the position at market level setting stop and limit levels at a specific date</td>
+        </tr>
+    </tbody>
+</table>
