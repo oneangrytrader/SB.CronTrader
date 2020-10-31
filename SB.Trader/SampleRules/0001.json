@@ -5,7 +5,6 @@
       "ruleType": "ENTRY",
       "strategy": "ENTER_AT_DATE",
       "date": "25/09/2020",
-      "level": null,
       "frequency": "SINGLE",
       "direction": "BUY",
       "stop": 50,

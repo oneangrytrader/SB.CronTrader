@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SB.Trader.Model.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace SB.Trader.Model
@@ -22,9 +23,11 @@ namespace SB.Trader.Model
         public int Stop;
 
         [JsonProperty("frequency")]
-        public int Frequency;
-    }
+        public Frequency Frequency;
 
+        [JsonProperty("date")]
+        public DateTime Date;
+    }
     public class Rules
     {
         [JsonProperty("Rules")]
