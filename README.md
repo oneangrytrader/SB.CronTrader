@@ -14,7 +14,7 @@ The program will iterate through every candle executing the rules provided
 
 Uppercase texts are static values coming from enums and must be specified exactly like they are indicated.
 
-<table style="width:800px;text-align:left;" border="1">
+<table>
     <thead>
         <tr>
             <th>Parameter</th>
