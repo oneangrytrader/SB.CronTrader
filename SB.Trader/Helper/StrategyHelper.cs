@@ -1,6 +1,5 @@
 ﻿using SB.Trader.Model;
 using SB.Trader.Model.Enum;
-using System;
 using System.Collections.Generic;
 
 namespace SB.Trader.Helper
@@ -9,11 +8,13 @@ namespace SB.Trader.Helper
     {
         private readonly Rules _rules;
         private readonly List<Candle> _data;
+        private readonly List<Position> _positions;
 
         public StrategyHelper(Rules rules, List<Candle> data)
         {
             _rules = rules;
             _data = data;
+            _positions = new List<Position>();
         }
         public void RunRules()
         {
@@ -37,7 +38,7 @@ namespace SB.Trader.Helper
                     {
                         break;
                     }
-                case RuleType.EXIT:
+                case RuleType.UPDATE:
                     {
                         break;
                     }

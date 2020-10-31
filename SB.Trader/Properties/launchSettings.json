@@ -2,7 +2,7 @@
   "profiles": {
     "SB.Trader": {
       "commandName": "Project",
-      "commandLineArgs": "-d \"D:\\Source\\BackTesting\\Data\\GBR.IDXGBP_Candlestick_5_M_BID_01.01.2018-15.08.2020.csv\" -r rules.json -e \"FTSE100\""
+      "commandLineArgs": "-d \"D:\\Source\\SB.CronTrader\\SB.Trader\\bin\\Debug\\netcoreapp3.1\\SampleRules\\0001.json\" -r rules.json -e \"FTSE100\""
     }
   }
 }
