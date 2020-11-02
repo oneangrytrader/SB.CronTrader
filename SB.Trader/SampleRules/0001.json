@@ -5,7 +5,7 @@
       "ruleType": "ENTRY",
       "strategy": "ENTER_AT_DATE",
       "date": "29/01/2018",
-      "frequency": "SINGLE",
+      "frequency": "MULTIPLE",
       "direction": "BUY",
       "stop": 50,
       "limit": 50

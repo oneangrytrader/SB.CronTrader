@@ -83,7 +83,7 @@ namespace SB.Trader.Helper
                     }
                 case Frequency.MULTIPLE:
                     {
-                        if (candle.Date == rule.Date)
+                        if (candle.Date.ToShortDateString() == rule.Date.ToShortDateString())
                         {
                             OpenPosition(rule, candle);
                         }
