@@ -22,7 +22,7 @@ namespace SB.Trader
             var data = DataHelper.GetCandles(options.DataPath, options.Epic, false);
             var strategyHelper = new StrategyHelper(rules, data);
             strategyHelper.RunRules();
-            strategyHelper.Positions.GenerateReport();
+            strategyHelper.Positions.GenerateReport(rules);
         }
         static void HandleParseError(IEnumerable<Error> errs)
         {

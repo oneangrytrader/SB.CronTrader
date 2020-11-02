@@ -1,11 +1,11 @@
 ﻿{
-  "Description": "Enter 'long' at market level a single time on the 25th of September of 2020",
-  "Rules": [
+  "description": "Enter 'long' at market level a single time on the 25th of September of 2020",
+  "rules": [
     {
       "ruleType": "ENTRY",
       "strategy": "ENTER_AT_DATE",
       "date": "29/01/2018",
-      "frequency": "MULTIPLE",
+      "frequency": "SINGLE",
       "direction": "BUY",
       "stop": 50,
       "limit": 50

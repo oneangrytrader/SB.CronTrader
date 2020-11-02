@@ -35,7 +35,10 @@ namespace SB.Trader.Model
     }
     public class Rules
     {
-        [JsonProperty("Rules")]
+        [JsonProperty("rules")]
         public List<Rule> Items;
+
+        [JsonProperty("description")]
+        public string Description;
     }
 }

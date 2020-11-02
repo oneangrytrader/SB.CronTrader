@@ -7,11 +7,12 @@ namespace SB.Trader.Report
 {
     public static class ReportGenerator
     {
-        public static void GenerateReport<T>(this List<T> listOfClassObjects)
+        public static void GenerateReport<T>(this List<T> listOfClassObjects, Model.Rules rules)
         {
             var template = File.ReadAllText("./Report/ResultTemplate.html");
             var tableContent = listOfClassObjects.ToHtmlTable();
             template = template.Replace("[TABLE]", tableContent);
+            template = template.Replace("[DESCRIPTION]", rules.Description);
             File.WriteAllText("./Report/Result.html", template);
         }
         private static string ToHtmlTable<T>(this List<T> listOfClassObjects)
