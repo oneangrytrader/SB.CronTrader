@@ -10,13 +10,13 @@ namespace SB.Trader.Helper
     {
         private readonly Rules _rules;
         private readonly List<Candle> _data;
-        private readonly List<Position> _positions;
+        public List<Position> Positions;
 
         public StrategyHelper(Rules rules, List<Candle> data)
         {
             _rules = rules;
             _data = data;
-            _positions = new List<Position>();
+            Positions = new List<Position>();
         }
         public void RunRules()
         {
@@ -73,7 +73,9 @@ namespace SB.Trader.Helper
             {
                 case Frequency.SINGLE:
                     {
-                        if (!_positions.Any(x => x.EntryDate == rule.Date) && candle.Date == rule.Date)
+                        if (
+                            !Positions.Any(x => x.EntryDate.ToShortDateString() == rule.Date.ToShortDateString()) && 
+                            candle.Date.ToShortDateString() == rule.Date.ToShortDateString())
                         {
                             OpenPosition(rule, candle);
                         }
@@ -91,7 +93,13 @@ namespace SB.Trader.Helper
         }
         private void OpenPosition(Rule rule, Candle candle)
         {
-            throw new NotImplementedException();
+            Positions.Add(new Position
+            {
+                EntryDate = candle.Date,
+                EntryLevel = candle.Close,
+                Stop = rule.Stop != null ? candle.Close - rule.Stop : null,
+                Limit = rule.Limit != null ? candle.Close + rule.Limit : null,
+            });
         }
     }
 }

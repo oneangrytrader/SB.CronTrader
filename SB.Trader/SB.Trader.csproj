@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Report\ResultTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SampleRules\0001.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

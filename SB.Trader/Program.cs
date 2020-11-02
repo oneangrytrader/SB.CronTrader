@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SB.Trader.Helper;
 using SB.Trader.Model;
+using SB.Trader.Report;
 using System.Collections.Generic;
 using System.IO;
 
@@ -21,6 +22,7 @@ namespace SB.Trader
             var data = DataHelper.GetCandles(options.DataPath, options.Epic, false);
             var strategyHelper = new StrategyHelper(rules, data);
             strategyHelper.RunRules();
+            strategyHelper.Positions.GenerateReport();
         }
         static void HandleParseError(IEnumerable<Error> errs)
         {
