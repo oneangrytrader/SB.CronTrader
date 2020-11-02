@@ -20,7 +20,7 @@ namespace SB.Trader.Report
 
             return listOfClassObjects == null || !listOfClassObjects.Any()
                 ? ret
-                : "<table id='mainTable' class='table table-striped table-bordered' style='width:100%'>" +
+                : "<table id='mainTable' class='display' style='width:100%'>" +
                   listOfClassObjects.First().GetType().GetProperties().Select(p => p.Name).ToList().ToColumnHeaders() +
                   listOfClassObjects.Aggregate(ret, (current, t) => current + t.ToHtmlTableRow()) +
                   "</table>";
@@ -31,7 +31,7 @@ namespace SB.Trader.Report
 
             return listOfProperties == null || !listOfProperties.Any()
                 ? ret
-                : "<tr>" +
+                : "<thead><tr>" +
                   listOfProperties.Aggregate(ret,
                       (current, propValue) =>
                           current +
@@ -39,13 +39,13 @@ namespace SB.Trader.Report
                            (Convert.ToString(propValue).Length <= 100
                                ? Convert.ToString(propValue)
                                : Convert.ToString(propValue).Substring(0, 100))+ "</th>")) +
-                  "</tr>";
+                  "</tr></thead>";
         }
         private static string ToHtmlTableRow<T>(this T classObject)
         {
             var ret = string.Empty;
 
-            return classObject == null
+            ret =  classObject == null
                 ? ret
                 : "<tr>" +
                   classObject.GetType()
@@ -57,6 +57,7 @@ namespace SB.Trader.Report
                                              ? Convert.ToString(prop.GetValue(classObject, null))
                                              : Convert.ToString(prop.GetValue(classObject, null)).Substring(0, 100)) +
                                          "</td>")) + "</tr>";
+            return $"<tbody>{ret}</tbody>";
         }
     }
 }
