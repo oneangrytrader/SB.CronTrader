@@ -3,6 +3,7 @@ using SB.Trader.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 
 namespace SB.Trader.Helper
 {
@@ -22,19 +23,31 @@ namespace SB.Trader.Helper
         {
             foreach(var candle in _data)
             {
+                UpdatePositions(candle);
                 RunRulesOnCandle(candle);
                 CloseStoppedPositions(candle);
                 CloseLimitReachedPositions(candle);
             }
         }
+
+        private void UpdatePositions(Candle candle)
+        {
+            Positions.ForEach(position =>
+            {
+                position.Level = candle.Close;
+            });
+        }
+
         private void CloseLimitReachedPositions(Candle candle)
         {
-            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN).ToList().ForEach(position =>
+            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN && x.Limit != null).ToList().ForEach(position =>
              {
-                 if (candle.Close >= position.Limit)
+                 if (
+                 (position.Level >= position.Limit && position.Direction == Direction.BUY) ||
+                 (position.Level <= position.Limit && position.Direction == Direction.SELL)
+                 )
                  {
-                     position.Level = candle.Close;
-                     position.ExitLevel = candle.Close;
+                     position.ExitLevel = position.Level;
                      position.PositionStatus = PositionStatus.LIMIT_REACHED;
                      position.ExitDate = candle.Date;
                  }
@@ -42,12 +55,14 @@ namespace SB.Trader.Helper
         }
         private void CloseStoppedPositions(Candle candle)
         {
-            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN).ToList().ForEach(position =>
+            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN && x.Stop != null).ToList().ForEach(position =>
             {
-                if (position.Level <= position.Stop)
+                if (
+                (position.Level <= position.Stop && position.Direction == Direction.BUY) ||
+                (position.Level >= position.Stop && position.Direction == Direction.SELL)
+                )
                 {
-                    position.Level = candle.Close;
-                    position.ExitLevel = candle.Close;
+                    position.ExitLevel = position.Level;
                     position.PositionStatus = PositionStatus.STOP_REACHED;
                     position.ExitDate = candle.Date;
                 }
@@ -121,16 +136,35 @@ namespace SB.Trader.Helper
         }
         private void OpenPosition(Rule rule, Candle candle)
         {
+            var level = rule.Direction == Direction.BUY ? candle.Close - rule.Spread : candle.Close + rule.Spread;
             Positions.Add(new Position
             {
                 EntryDate = candle.Date,
-                EntryLevel = candle.Close,
-                Level = candle.Close,
-                Stop = rule.Stop != null ? candle.Close - rule.Stop : null,
-                Limit = rule.Limit != null ? candle.Close + rule.Limit : null,
+                EntryLevel = level,
+                Level = level,
+                Stop = GetStop(rule, candle),
+                Limit = GetLimit(rule, candle),
                 PositionStatus = PositionStatus.OPEN,
                 Direction = rule.Direction
             });
+        }
+        private double? GetLimit(Rule rule, Candle candle)
+        {
+            double? limit = null;
+            if (rule.Limit != null)
+            {
+                limit = rule.Direction == Direction.BUY ? candle.Close + rule.Limit : candle.Close - rule.Limit;
+            }
+            return limit;
+        }
+        private double? GetStop(Rule rule, Candle candle)
+        {
+            double? stop = null;
+            if (rule.Stop != null)
+            {
+                stop = rule.Direction == Direction.BUY ? candle.Close - rule.Stop : candle.Close + rule.Stop;
+            }
+            return stop;
         }
     }
 }
