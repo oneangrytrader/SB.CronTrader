@@ -23,7 +23,35 @@ namespace SB.Trader.Helper
             foreach(var candle in _data)
             {
                 RunRulesOnCandle(candle);
+                CloseStoppedPositions(candle);
+                CloseLimitReachedPositions(candle);
             }
+        }
+        private void CloseLimitReachedPositions(Candle candle)
+        {
+            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN).ToList().ForEach(position =>
+             {
+                 if (candle.Close >= position.Limit)
+                 {
+                     position.Level = candle.Close;
+                     position.ExitLevel = candle.Close;
+                     position.PositionStatus = PositionStatus.LIMIT_REACHED;
+                     position.ExitDate = candle.Date;
+                 }
+             });
+        }
+        private void CloseStoppedPositions(Candle candle)
+        {
+            Positions.Where(x => x.PositionStatus == PositionStatus.OPEN).ToList().ForEach(position =>
+            {
+                if (position.Level <= position.Stop)
+                {
+                    position.Level = candle.Close;
+                    position.ExitLevel = candle.Close;
+                    position.PositionStatus = PositionStatus.STOP_REACHED;
+                    position.ExitDate = candle.Date;
+                }
+            });
         }
         private void RunRulesOnCandle(Candle candle)
         {
@@ -97,8 +125,11 @@ namespace SB.Trader.Helper
             {
                 EntryDate = candle.Date,
                 EntryLevel = candle.Close,
+                Level = candle.Close,
                 Stop = rule.Stop != null ? candle.Close - rule.Stop : null,
                 Limit = rule.Limit != null ? candle.Close + rule.Limit : null,
+                PositionStatus = PositionStatus.OPEN,
+                Direction = rule.Direction
             });
         }
     }

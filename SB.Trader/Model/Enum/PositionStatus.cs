@@ -3,6 +3,7 @@
     public enum PositionStatus
     {
         OPEN,
-        CLOSED
+        LIMIT_REACHED,
+        STOP_REACHED
     }
 }

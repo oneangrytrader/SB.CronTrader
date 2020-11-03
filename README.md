@@ -88,5 +88,21 @@ Uppercase texts are static values coming from enums and must be specified exactl
                 <td>Number of points away</td>
                 <td>Level to exit the position and take profit</td>
             </tr>
+            <tr>
+                <td rowspan="3">PositionStatus</td>
+                <td>Enum</td>
+                <td>OPEN</td>
+                <td>First status when the position is opened</td>
+            </tr>
+            <tr>
+                <td>Enum</td>
+                <td>LIMIT_REACHED</td>
+                <td>Limit level has been reached</td>
+            </tr>
+            <tr>
+                <td>Enum</td>
+                <td>STOP_REACHED</td>
+                <td>Stop level has been reached</td>
+            </tr>
         </tbody>
     </table>
