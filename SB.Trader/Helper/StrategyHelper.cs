@@ -3,7 +3,6 @@ using SB.Trader.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 
 namespace SB.Trader.Helper
 {
@@ -29,7 +28,6 @@ namespace SB.Trader.Helper
                 CloseLimitReachedPositions(candle);
             }
         }
-
         private void UpdatePositions(Candle candle)
         {
             Positions.ForEach(position =>
@@ -37,7 +35,6 @@ namespace SB.Trader.Helper
                 position.Level = candle.Close;
             });
         }
-
         private void CloseLimitReachedPositions(Candle candle)
         {
             Positions.Where(x => x.PositionStatus == PositionStatus.OPEN && x.Limit != null).ToList().ForEach(position =>
