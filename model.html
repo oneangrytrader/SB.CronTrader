@@ -49,32 +49,12 @@
                 <td rowspan="2">Strategy</td>
                 <td>Enum</td>
                 <td>ENTRY_AT_LEVEL</td>
-                <td>Open the position asetting stop and limit levels</td>
+                <td>Open the position setting stop and limit levels</td>
             </tr>
             <tr>
                 <td>Enum</td>
                 <td>ENTRY_AT_DATE</td>
                 <td>Open the position setting stop and limit levels at a specific date</td>
-            </tr>
-            <tr>                
-                <td>Level</td>
-                <td>Double</td>
-                <td>Number</td>
-                <td>If set it will enter only at specific value or better.<br/>
-                    If not set it will enter at market level.
-                </td>
-            </tr>
-            <tr>                
-                <td>Stop</td>
-                <td>Double</td>
-                <td>Number of points away</td>
-                <td>Level to stop and exit the position</td>
-            </tr>
-            <tr>                
-                <td>Limit</td>
-                <td>Double</td>
-                <td>Number of points away</td>
-                <td>Level to exit the position and take profit</td>
             </tr>
             <tr>
                 <td rowspan="3">PositionStatus</td>
@@ -92,6 +72,32 @@
                 <td>STOP_REACHED</td>
                 <td>Stop level has been reached</td>
             </tr>
+            <tr>                
+                <td>Level</td>
+                <td>Double</td>
+                <td>Number</td>
+                <td>If set it will enter only at specific value or better.<br/>
+                    If not set it will enter at market level.
+                </td>
+            </tr>
+            <tr>                
+                <td>Spread</td>
+                <td>Double</td>
+                <td>Number</td>
+                <td>Spread applied by the broker</td>
+            </tr>
+            <tr>                
+                <td>Stop</td>
+                <td>Double</td>
+                <td>Points away from level</td>
+                <td>Level to stop and exit the position</td>
+            </tr>            
+            <tr>                
+                <td>Limit</td>
+                <td>Double</td>
+                <td>Points away from level</td>
+                <td>Level to exit the position and take profit</td>
+            </tr>            
         </tbody>
     </table>
     <script type="text/javascript">

@@ -32,6 +32,9 @@ namespace SB.Trader.Model
         [JsonConverter(typeof(DateFormatConverter), "dd/MM/yyyy")]
         [JsonProperty("date")]
         public DateTime Date;
+
+        [JsonProperty("spread")]
+        public double Spread;
     }
     public class Rules
     {
