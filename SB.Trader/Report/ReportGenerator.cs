@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SB.Trader.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,33 +8,47 @@ namespace SB.Trader.Report
 {
     public static class ReportGenerator
     {
-        public static void GenerateReport<T>(this List<T> listOfClassObjects, Model.Rules rules)
+        public static string BuildSummary(this List<Position> list)
+        {
+            var output = string.Empty;
+            output += "<b><u>Summary</u></b>";
+            output += "<ul>";
+            output += $"<li>Positions: {list.Count}</li>";
+            output += $"<li>Positions remaining open: {list.Where(x => x.PositionStatus == Model.Enum.PositionStatus.OPEN).Count()}</li>";
+            output += $"<li>Positions stopped: {list.Where(x => x.PositionStatus == Model.Enum.PositionStatus.STOP_REACHED).Count()}</li>";
+            output += $"<li>Positions closed in profit: {list.Where(x => x.PositionStatus == Model.Enum.PositionStatus.LIMIT_REACHED).Count()}</li>";
+            output += "</ul>";
+
+            return output;
+        }
+        public static void GenerateReport(this List<Position> list, Model.Rules rules)
         {
             var template = File.ReadAllText("./Report/ResultTemplate.html");
-            var tableContent = listOfClassObjects.ToHtmlTable();
+            var tableContent = list.ToHtmlTable();
             template = template.Replace("[TABLE]", tableContent);
             template = template.Replace("[DESCRIPTION]", rules.Description);
+            template = template.Replace("[SUMMARY]", list.BuildSummary());
             File.WriteAllText("./Report/Result.html", template);
         }
-        private static string ToHtmlTable<T>(this List<T> listOfClassObjects)
+        private static string ToHtmlTable<T>(this List<T> list)
         {
             var ret = string.Empty;
 
-            return listOfClassObjects == null || !listOfClassObjects.Any()
+            return list == null || !list.Any()
                 ? ret
                 : "<table id='mainTable' class='display' style='width:100%'>" +
-                  listOfClassObjects.First().GetType().GetProperties().Select(p => p.Name).ToList().ToColumnHeaders() +
-                  listOfClassObjects.Aggregate(ret, (current, t) => current + t.ToHtmlTableRow()) +
+                  list.First().GetType().GetProperties().Select(p => p.Name).ToList().ToColumnHeaders() +
+                  list.Aggregate(ret, (current, t) => current + t.ToHtmlTableRow()) +
                   "</table>";
         }
-        private static string ToColumnHeaders<T>(this List<T> listOfProperties)
+        private static string ToColumnHeaders<T>(this List<T> list)
         {
             var ret = string.Empty;
 
-            return listOfProperties == null || !listOfProperties.Any()
+            return list == null || !list.Any()
                 ? ret
                 : "<thead><tr>" +
-                  listOfProperties.Aggregate(ret,
+                  list.Aggregate(ret,
                       (current, propValue) =>
                           current +
                           ("<th>" +
