@@ -6,7 +6,7 @@
       "strategy": "ENTER_AT_DATE",
       "date": "29/01/2018",
       "frequency": "MULTIPLE",
-      "direction": "SELL",
+      "direction": "BUY",
       "stop": 50,
       "limit": 50,
       "spread" : 2
